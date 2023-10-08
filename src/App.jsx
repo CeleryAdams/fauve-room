@@ -1,10 +1,19 @@
-import { Center, useGLTF, OrbitControls } from '@react-three/drei'
+import { Center, useGLTF, useTexture, OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
 export default function App()
 {
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
-    console.log(nodes)
+
+    const glossyTexture = useTexture('./textures/baked_glossy.jpg')
+    glossyTexture.flipY = false
+
+    const matteTexture = useTexture('./textures/baked_matte.jpg')
+    matteTexture.flipY = false
+
+    const paintingTexture = useTexture('./textures/painting/portrait_night.jpg')
+    paintingTexture.flipY = false
+
 
     return <>
         <Perf position="top-left"/>
@@ -12,11 +21,11 @@ export default function App()
 
         <Center>
             <mesh geometry={ nodes.glossy.geometry } position={ nodes.glossy.position }>
-                <meshNormalMaterial />
+                <meshBasicMaterial map ={ glossyTexture }/>
             </mesh>
 
             <mesh geometry={ nodes.matte.geometry } position={ nodes.matte.position }>
-                <meshNormalMaterial />
+                <meshBasicMaterial map={ matteTexture } />
             </mesh>
 
             <mesh geometry={ nodes.mirrorFrame.geometry } position={ nodes.mirrorFrame.position }>
@@ -28,7 +37,7 @@ export default function App()
             </mesh>
 
             <mesh geometry={ nodes.painting.geometry } position={ nodes.painting.position }>
-                <meshNormalMaterial />
+                <meshBasicMaterial map={ paintingTexture } />
             </mesh>
 
         </Center>
