@@ -1,15 +1,18 @@
-import { Center, MeshReflectorMaterial, OrbitControls, useGLTF, useTexture } from '@react-three/drei'
+import { Environment, Center, OrbitControls, useGLTF, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { Perf } from 'r3f-perf'
-import { extend } from '@react-three/fiber'
 import { MeshBakedMaterial } from './MeshBakedMaterial.js'
 import { Reflector } from 'three/examples/jsm/objects/Reflector'
+import { useControls } from 'leva'
 
 
 export default function App()
 {
-    const { nodes } = useGLTF('./models/pitcher_scene.glb')
+    //debug
+    const { lightPosition } = useControls({lightPosition: -2})
+    console.log(lightPosition)
 
+    //load textures
     const glossyTexture = useTexture('./textures/baked_glossy.jpg')
     glossyTexture.flipY = false
     glossyTexture.colorSpace = THREE.SRGBColorSpace
@@ -20,10 +23,15 @@ export default function App()
     const paintingTexture = useTexture('./textures/painting/portrait_night.jpg')
     paintingTexture.flipY = false
 
-    const matCapMaterial = useTexture('./textures/gilt_matcap.png')
+    const matCapTexture = useTexture('./textures/gilt_matcap.png')
 
+    //custom material for glossy objects
     const meshBakedMaterial = new MeshBakedMaterial({map: glossyTexture})
 
+    //load model
+    const { nodes } = useGLTF('./models/pitcher_scene.glb')
+
+    //three.js reflector object
     const mirrorReflector = new Reflector(nodes.mirrorGlass.geometry, {
         // clipBias: 0.003,
         textureWidth: window.innerWidth * window.devicePixelRatio,
@@ -36,7 +44,19 @@ export default function App()
     return <>
         <Perf position="top-left"/>
         <OrbitControls makeDefault/>
-        <ambientLight intensity={0.1}/>
+
+        <Environment
+            background = {'only'}
+            files={[
+                './environment/px.png',
+                './environment/nx.png',
+                './environment/py.png',
+                './environment/ny.png',
+                './environment/pz.png',
+                './environment/nz.png',
+            ]}
+        />
+
         <Center>
             <mesh geometry={ nodes.glossy.geometry } position={ nodes.glossy.position } material={ meshBakedMaterial }/>
 
@@ -45,7 +65,7 @@ export default function App()
             </mesh>
 
             <mesh geometry={ nodes.mirrorFrame.geometry } position={ nodes.mirrorFrame.position }>
-                <meshMatcapMaterial matcap={matCapMaterial}/>
+                <meshMatcapMaterial matcap={matCapTexture}/>
             </mesh>
 
             <primitive object = { mirrorReflector } />
