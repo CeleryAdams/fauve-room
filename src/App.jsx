@@ -1,21 +1,49 @@
-import { Environment, Center, OrbitControls, useGLTF, useTexture } from '@react-three/drei'
+import { Environment, Center, OrbitControls, useGLTF, useHelper, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { Perf } from 'r3f-perf'
 import { MeshBakedMaterial } from './MeshBakedMaterial.js'
 import { Reflector } from 'three/examples/jsm/objects/Reflector'
 import { useControls } from 'leva'
+import { useRef } from 'react'
 
 
 export default function App()
 {
     //debug
-    const { lightPosition } = useControls({lightPosition: -2})
-    console.log(lightPosition)
+    const { lightPosition, lightIntensity, lightColor } = useControls({
+        lightPosition:
+        {
+            value: {x: 3.37, y: 1, z: 0},
+            step: 0.01
+        },
+        lightIntensity:
+        {
+            value: 0.5,
+            step: 0.1
+        },
+        lightColor: '#e2dccb'
+    
+    })
+
+    // const { lightIntensity } = useControls({
+    //     lightIntensity:
+    //     {
+    //         value: 0.5,
+    //         step: 0.1
+    //     }
+    
+    // })
+
+    const directionalLight = useRef()
+    useHelper(directionalLight, THREE.DirectionalLightHelper, 1)
 
     //load textures
     const glossyTexture = useTexture('./textures/baked_glossy.jpg')
     glossyTexture.flipY = false
     glossyTexture.colorSpace = THREE.SRGBColorSpace
+
+    const glossyRoughness = useTexture('./textures/baked_glossy_roughness.png')
+    glossyRoughness.flipY = false
 
     const matteTexture = useTexture('./textures/baked_matte.jpg')
     matteTexture.flipY = false
@@ -26,7 +54,7 @@ export default function App()
     const matCapTexture = useTexture('./textures/gilt_matcap.png')
 
     //custom material for glossy objects
-    const meshBakedMaterial = new MeshBakedMaterial({map: glossyTexture})
+    const meshBakedMaterial = new MeshBakedMaterial({map: glossyTexture, roughnessMap: glossyRoughness})
 
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
@@ -56,6 +84,8 @@ export default function App()
                 './environment/nz.png',
             ]}
         />
+
+        <directionalLight lightColor={lightColor} intensity= { lightIntensity } ref={ directionalLight } position = {[ lightPosition.x, lightPosition.y, lightPosition.z ]}/>
 
         <Center>
             <mesh geometry={ nodes.glossy.geometry } position={ nodes.glossy.position } material={ meshBakedMaterial }/>
