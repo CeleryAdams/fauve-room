@@ -10,7 +10,7 @@ import { useRef } from 'react'
 export default function App()
 {
     //debug
-    const { lightPosition, reflectorPosition, lightIntensity, lightColor } = useControls({
+    const { lightPosition, lightIntensity, lightColor } = useControls({
         lightPosition:
         {
             value: {x: 3.37, y: 1, z: 0},
@@ -34,12 +34,12 @@ export default function App()
     useHelper(directionalLight, THREE.DirectionalLightHelper, 1)
 
     //load textures
-    const glossyTexture = useTexture('./textures/baked_glossy.jpg')
-    glossyTexture.flipY = false
-    glossyTexture.colorSpace = THREE.SRGBColorSpace
+    const fruitTexture = useTexture('./textures/baked_fruits_1k.jpg')
+    fruitTexture.flipY = false
+    fruitTexture.colorSpace = THREE.SRGBColorSpace
 
-    const glossyRoughness = useTexture('./textures/baked_glossy_roughness.png')
-    glossyRoughness.flipY = false
+    const fruitRoughness = useTexture('./textures/baked_fruits_roughness.jpg')
+    fruitRoughness.flipY = false
 
     const matteTexture = useTexture('./textures/baked_matte.jpg')
     matteTexture.flipY = false
@@ -51,18 +51,19 @@ export default function App()
 
     const blackMatCapTexture = useTexture('./textures/black_matcap.png')
 
-    const floorTexture = useTexture('./textures/floor.jpg')
+    const floorTexture = useTexture('./textures/floor_1k.jpg')
     const floorRoughness = useTexture('./textures/floor_roughness.jpg')
+
+    const tableTexture = useTexture('./textures/baked_tabletop_1k.jpg')
+    tableTexture.flipY = false
 
 
     //custom material for glossy objects
-    const meshBakedMaterial = new MeshBakedMaterial({map: glossyTexture, roughness: 5, roughnessMap: glossyRoughness})
+    const meshBakedMaterial = new MeshBakedMaterial({map: fruitTexture, roughness: 2, roughnessMap: fruitRoughness})
 
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
-    const pitcherTest = useGLTF('./models/pitcher.glb').nodes.large_pitcher_table
-
-    console.log(pitcherTest)
+    console.log(nodes)
 
     //three.js reflector object
     const mirrorReflector = new Reflector(nodes.mirrorGlass.geometry, {
@@ -95,7 +96,7 @@ export default function App()
 
         <Center>
 
-        <mesh position={[ 0, .1, 0 ]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh position={[ 0, 0, 0 ]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[6.1, 6.1]} />
                 <MeshReflectorMaterial
                     blur={[400, 400]}
@@ -111,15 +112,20 @@ export default function App()
                 />
                 </mesh>
 
-            <mesh geometry={ nodes.glossy.geometry } position={ nodes.glossy.position } material={ meshBakedMaterial }/>
+            <mesh geometry={ nodes.fruits.geometry } position={ nodes.fruits.position } material={ meshBakedMaterial }/>
 
-            <mesh geometry ={ pitcherTest.geometry } position={[0, 1, 1]}>
+            <mesh geometry ={ nodes.pitcher.geometry } position={ nodes.pitcher.position }>
                 <meshMatcapMaterial matcap={blackMatCapTexture}/>
             </mesh>
 
-            <mesh geometry={ nodes.matte.geometry } position={ nodes.matte.position }>
+            <mesh geometry={ nodes.matte_reduced.geometry } position={ nodes.matte_reduced.position }>
                 <meshBasicMaterial map={ matteTexture } />
             </mesh>
+
+            <mesh geometry={ nodes.tabletop.geometry } position={ nodes.tabletop.position }>
+                <meshBasicMaterial map={ tableTexture } />
+            </mesh>
+
 
             <mesh geometry={ nodes.mirrorFrame.geometry } position={ nodes.mirrorFrame.position }>
                 <meshMatcapMaterial matcap={giltMatCapTexture}/>
