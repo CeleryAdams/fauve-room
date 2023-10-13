@@ -118,7 +118,7 @@ export default function App()
                 <meshMatcapMaterial matcap={blackMatCapTexture}/>
             </mesh>
 
-            <mesh geometry={ nodes.matte_reduced.geometry } position={ nodes.matte_reduced.position }>
+            <mesh geometry={ nodes.matte.geometry } position={ nodes.matte.position }>
                 <meshBasicMaterial map={ matteTexture } />
             </mesh>
 
