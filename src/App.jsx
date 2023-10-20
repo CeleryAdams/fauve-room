@@ -9,21 +9,27 @@ import { useFrame } from '@react-three/fiber'
 
 export default function App()
 {
-
-    let lerpedFov = 45
+    const fov = 42
+    let lerpedFov = fov
     const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
+    const orbitRef = useRef()
+
+
 
     useFrame((state, delta) => {
 
-        let fovFactor = state.camera.position.distanceTo(origin) / 3
-        state.camera.fov = Math.max(fovFactor * 45, 20)
+        let fovFactor = state.camera.position.distanceTo(origin) / 3.5
+        state.camera.fov = Math.min(50, Math.max(fovFactor * fov, 20))
         state.camera.updateProjectionMatrix()
         
         lerpedFov = THREE.MathUtils.lerp(lerpedFov, state.camera.fov, 10 * delta)
         state.camera.fov = lerpedFov
-        console.log(lerpedFov)
-        console.log(state.camera.fov)
-    
+       
+        //set panning limits
+        orbitRef.current.target.x = Math.max(-1.5, Math.min(orbitRef.current.target.x, 1.5))
+        orbitRef.current.target.y = Math.max(-0.8, Math.min(orbitRef.current.target.y, 1))
+        orbitRef.current.target.z = Math.max(-1.5, Math.min(orbitRef.current.target.z, 1.5))
+
     })
     
     //debug
@@ -92,11 +98,13 @@ export default function App()
 
     return <>
         <Perf position="top-left"/>
-        <OrbitControls makeDefault 
+        <OrbitControls makeDefault zoomToCursor
+            ref = { orbitRef }
             target={[ 0, -0.4, 0]}
             maxDistance={ 4 }
             maxPolarAngle={ Math.PI - 1.45 }
             zoomSpeed = { 0.7 }    
+            panSpeed = {0.6}
         />
 
         <Environment
@@ -115,7 +123,6 @@ export default function App()
         <directionalLight color={lightColor} intensity= { lightIntensity } ref={ directionalLight } position = {[ lightPosition.x, lightPosition.y, lightPosition.z ]}/>
 
         <Center>
-
         <mesh position={[ 0, 0, 0 ]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[6.1, 6.1]} />
                 <MeshReflectorMaterial
