@@ -4,11 +4,28 @@ import { Perf } from 'r3f-perf'
 import { MeshBakedMaterial } from './MeshBakedMaterial.js'
 import { Reflector } from 'three/examples/jsm/objects/Reflector'
 import { useControls } from 'leva'
-import { useRef } from 'react'
-
+import { useRef, useState } from 'react'
+import { useFrame } from '@react-three/fiber'
 
 export default function App()
 {
+
+    let lerpedFov = 45
+    const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
+
+    useFrame((state, delta) => {
+
+        let fovFactor = state.camera.position.distanceTo(origin) / 3
+        state.camera.fov = Math.max(fovFactor * 45, 20)
+        state.camera.updateProjectionMatrix()
+        
+        lerpedFov = THREE.MathUtils.lerp(lerpedFov, state.camera.fov, 10 * delta)
+        state.camera.fov = lerpedFov
+        console.log(lerpedFov)
+        console.log(state.camera.fov)
+    
+    })
+    
     //debug
     const { lightPosition, lightIntensity, lightColor } = useControls({
         lightPosition:
@@ -41,7 +58,7 @@ export default function App()
     const fruitRoughness = useTexture('./textures/baked_fruits_roughness.jpg')
     fruitRoughness.flipY = false
 
-    const matteTexture = useTexture('./textures/baked_matte.jpg')
+    const matteTexture = useTexture('./textures/baked_matte_denoised.jpg')
     matteTexture.flipY = false
 
     const paintingTexture = useTexture('./textures/painting/portrait_night.jpg')
@@ -59,25 +76,28 @@ export default function App()
 
 
     //custom material for glossy objects
-    const meshBakedMaterial = new MeshBakedMaterial({map: fruitTexture, roughness: 2, roughnessMap: fruitRoughness})
+    const [ meshBakedMaterial ] = useState(() => new MeshBakedMaterial({map: fruitTexture, roughness: 2, roughnessMap: fruitRoughness}))
 
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
-    console.log(nodes)
 
     //three.js reflector object
-    const mirrorReflector = new Reflector(nodes.mirrorGlass.geometry, {
+    const [ mirrorReflector ] = useState(() => new Reflector(nodes.mirrorGlass.geometry, {
         // clipBias: 0.003,
         textureWidth: window.innerWidth * window.devicePixelRatio,
         textureHeight: window.innerHeight * window.devicePixelRatio
-    })
+    }))
     mirrorReflector.position.set(nodes.mirrorGlass.position.x, nodes.mirrorGlass.position.y, nodes.mirrorGlass.position.z)
-
 
 
     return <>
         <Perf position="top-left"/>
-        <OrbitControls makeDefault/>
+        <OrbitControls makeDefault 
+            target={[ 0, -0.4, 0]}
+            maxDistance={ 4 }
+            maxPolarAngle={ Math.PI - 1.45 }
+            zoomSpeed = { 0.7 }    
+        />
 
         <Environment
             background = {'only'}
