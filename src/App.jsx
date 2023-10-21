@@ -9,6 +9,8 @@ import { useFrame } from '@react-three/fiber'
 
 export default function App()
 {
+
+    console.log(MeshReflectorMaterial)
     const fov = 42
     let lerpedFov = fov
     const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
@@ -76,6 +78,7 @@ export default function App()
 
     const floorTexture = useTexture('./textures/floor_1k.jpg')
     const floorRoughness = useTexture('./textures/floor_roughness.jpg')
+    const floorAlpha = useTexture('/textures/floor_alpha.jpg')
 
     const tableTexture = useTexture('./textures/baked_tabletop_1k.jpg')
     tableTexture.flipY = false
@@ -133,9 +136,11 @@ export default function App()
                     depthScale={1}
                     minDepthThreshold={.5}
                     map={floorTexture}
+                    alphaMap={ floorAlpha }
                     metalness={0}
                     roughness={6}
                     roughnessMap={floorRoughness}
+                    transparent
                 />
                 </mesh>
 
