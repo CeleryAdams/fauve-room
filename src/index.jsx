@@ -1,7 +1,7 @@
 import './style.css'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
-import App from './App.jsx'
+import World from './World.jsx'
 import { StrictMode } from 'react'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
@@ -16,7 +16,7 @@ root.render(
         position: [ 1.7, -0.25, 2.7 ],
       }}
     >
-      <App />
+      <World />
     </Canvas>
   </StrictMode>
 )
