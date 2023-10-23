@@ -10,7 +10,6 @@ import { useFrame } from '@react-three/fiber'
 export default function App()
 {
 
-    console.log(MeshReflectorMaterial)
     const fov = 42
     let lerpedFov = fov
     const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
@@ -34,7 +33,7 @@ export default function App()
 
     })
     
-    //debug
+    // debug
     const { lightPosition, lightIntensity, lightColor } = useControls({
         lightPosition:
         {
@@ -47,24 +46,18 @@ export default function App()
             step: 0.1
         },
         lightColor: '#e2dccb',
-        reflectorPosition:
-        {
-            value: {x: 3, y: -1.47, z: 2},
-            step: 0.01
-        },
-    
     })
 
     const directionalLight = useRef()
     useHelper(directionalLight, THREE.DirectionalLightHelper, 1)
 
     //load textures
-    const fruitTexture = useTexture('./textures/baked_fruits_1k.jpg')
-    fruitTexture.flipY = false
-    fruitTexture.colorSpace = THREE.SRGBColorSpace
+    const glossyTexture = useTexture('./textures/baked_glossy.jpg')
+    glossyTexture.flipY = false
+    glossyTexture.colorSpace = THREE.SRGBColorSpace
 
-    const fruitRoughness = useTexture('./textures/baked_fruits_roughness.jpg')
-    fruitRoughness.flipY = false
+    const glossyRoughness = useTexture('./textures/baked_glossy_roughness.jpg')
+    glossyRoughness.flipY = false
 
     const matteTexture = useTexture('./textures/baked_matte_denoised.jpg')
     matteTexture.flipY = false
@@ -80,12 +73,8 @@ export default function App()
     const floorRoughness = useTexture('./textures/floor_roughness.jpg')
     const floorAlpha = useTexture('/textures/floor_alpha.jpg')
 
-    const tableTexture = useTexture('./textures/baked_tabletop_1k.jpg')
-    tableTexture.flipY = false
-
-
     //custom material for glossy objects
-    const [ meshBakedMaterial ] = useState(() => new MeshBakedMaterial({map: fruitTexture, roughness: 2, roughnessMap: fruitRoughness}))
+    const [ meshBakedMaterial ] = useState(() => new MeshBakedMaterial({map: glossyTexture, roughness: 3, roughnessMap: glossyRoughness}))
 
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
@@ -113,12 +102,12 @@ export default function App()
         <Environment
             background = {'only'}
             files={[
-                './environment/px.png',
-                './environment/nx.png',
-                './environment/py.png',
-                './environment/ny.png',
-                './environment/pz.png',
-                './environment/nz.png',
+                './environment/px.jpg',
+                './environment/nx.jpg',
+                './environment/py.jpg',
+                './environment/ny.jpg',
+                './environment/pz.jpg',
+                './environment/nz.jpg',
             ]}
         />
             
@@ -144,7 +133,8 @@ export default function App()
                 />
                 </mesh>
 
-            <mesh geometry={ nodes.fruits.geometry } position={ nodes.fruits.position } material={ meshBakedMaterial }/>
+            
+            <mesh geometry={ nodes.glossy.geometry } position={ nodes.glossy.position } material={ meshBakedMaterial }/>
 
             <mesh geometry ={ nodes.pitcher.geometry } position={ nodes.pitcher.position }>
                 <meshMatcapMaterial matcap={blackMatCapTexture}/>
@@ -155,9 +145,8 @@ export default function App()
             </mesh>
 
             <mesh geometry={ nodes.tabletop.geometry } position={ nodes.tabletop.position }>
-                <meshBasicMaterial map={ tableTexture } />
+                <meshBasicMaterial map={ glossyTexture } />
             </mesh>
-
 
             <mesh geometry={ nodes.mirrorFrame.geometry } position={ nodes.mirrorFrame.position }>
                 <meshMatcapMaterial matcap={giltMatCapTexture}/>
