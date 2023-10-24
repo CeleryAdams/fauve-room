@@ -46,7 +46,7 @@ export default function World()
         orbitRef.current.target.y = Math.max(-0.8, Math.min(orbitRef.current.target.y, 1))
         orbitRef.current.target.z = Math.max(-1.5, Math.min(orbitRef.current.target.z, 1.5))
 
-        //change fov based on distance from origin to remove clipped wall objects
+        //change near setting based on distance from origin to remove clipped wall objects
         state.camera.near = Math.pow(fovFactor, 1.8) * 1.6
         console.log(state.camera.near)
 
