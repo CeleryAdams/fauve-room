@@ -1,7 +1,7 @@
 import { Center, OrbitControls, useGLTF} from '@react-three/drei'
 import * as THREE from 'three'
 import { Perf } from 'r3f-perf'
-import { useRef, useState } from 'react'
+import { useRef, useState, Suspense } from 'react'
 import { useFrame } from '@react-three/fiber'
 import Stage from './Stage.jsx'
 import Room from './Room.jsx'
@@ -39,7 +39,6 @@ export default function World()
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
 
-
     return <>
         <Perf position="top-left"/>
         <OrbitControls makeDefault zoomToCursor
@@ -52,9 +51,8 @@ export default function World()
         />
 
         <Stage />
-
         <Center>
-            <Room model={ nodes.matte } />
+            <Room model={ nodes.matte }/>
             <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} />
             <Mirror frame={ nodes.mirrorFrame } glass={ nodes.mirrorGlass } />
             <Floor />
