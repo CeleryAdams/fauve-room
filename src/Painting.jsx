@@ -1,18 +1,19 @@
-import { useTexture } from "@react-three/drei"
+import { useTexture } from '@react-three/drei'
+import usePainting from './stores/usePainting.js'
 
 
-export default function Painting( {model, handleClick, clickState} )
+export default function Painting( {model, click} )
 {
-    const paintingTexture = useTexture('./textures/painting/portrait_night.jpg')
+    const paintingTexture = useTexture('./textures/painting/table_night.jpg')
     paintingTexture.flipY = false
 
-    const click = () => console.log("click")
+    // const click = usePainting((state) => state.setTextures)
 
     return <>
         <mesh 
             geometry={ model.geometry } 
             position={ model.position } 
-            onClick={ handleClick }
+            onClick={ click }
             onPointerEnter={() => {document.body.style.cursor = 'pointer'}}
             onPointerLeave={() => {document.body.style.cursor = 'default'}}
         >
