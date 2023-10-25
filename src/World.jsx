@@ -1,7 +1,7 @@
 import { Center, OrbitControls, useGLTF} from '@react-three/drei'
 import * as THREE from 'three'
 import { Perf } from 'r3f-perf'
-import { useRef, useState} from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import Stage from './Stage.jsx'
 import Room from './Room.jsx'
@@ -9,7 +9,6 @@ import Tabletop from './Tabletop.jsx'
 import Mirror from './Mirror.jsx'
 import Floor from './Floor.jsx'
 import Painting from './Painting.jsx'
-import usePainting from './stores/usePainting.js'
 
 
 export default function World()
@@ -19,17 +18,29 @@ export default function World()
     const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
     const orbitRef = useRef()
 
-    // const textureSet = usePainting((state) =>state.textures)
-    // if(textureSet === 'day'){console.log('texture set to day')}
+    
 
-    const [texture, setTexture] = useState('day');
-    const click = () => {
-        if (texture === 'day')
-        {
-            setTexture('red')
-        }
-        else setTexture('day')
-    }
+    // const [texture, setTexture] = useState('day')
+
+    const [texture, setTexture] = useState(() => {
+        const savedTexture = localStorage.getItem('texture') || 'day';
+        return savedTexture;
+      });
+
+    
+    const click = () => texture === 'day' ? setTexture('night') : setTexture('day')
+
+
+    useEffect(() =>
+    {
+        const savedTexture = localStorage.getItem('texture') ?? "day"
+        setTexture(savedTexture)
+    }, [])
+
+    useEffect(() =>
+    {
+        localStorage.setItem('texture', texture)
+    }, [texture])
 
 
     useFrame((state, delta) => {
@@ -48,7 +59,6 @@ export default function World()
 
         //change near setting based on distance from origin to remove clipped wall objects
         state.camera.near = Math.pow(fovFactor, 1.8) * 1.6
-        console.log(state.camera.near)
 
     })
     
@@ -64,16 +74,16 @@ export default function World()
             maxDistance={ 4 }
             maxPolarAngle={ Math.PI - 1.45 }
             zoomSpeed = { 0.7 }    
-            panSpeed = {0.6}
+            panSpeed = {0.8}
         />
 
-        <Stage />
-        <Center>
+        <Stage texture={texture}/>
+        <Center >
             <Room model={ nodes.matte } texture={texture}/>
-            <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} />
-            <Mirror frame={ nodes.mirrorFrame } glass={ nodes.mirrorGlass } />
-            <Floor />
-            <Painting model={ nodes.painting } click={click} />
+            <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} texture={texture}/>
+            <Mirror frame={ nodes.mirrorFrame } glass={ nodes.mirrorGlass } texture={texture} />
+            <Floor texture={texture}/>
+            <Painting model={ nodes.painting } click={click} texture={texture}/>
         </Center>
     </>
 }

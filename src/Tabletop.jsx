@@ -4,21 +4,34 @@ import { useState } from 'react'
 import * as THREE from 'three'
 
 
-export default function Tabletop( {glossyObjects, tabletop, pitcher} )
+export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
 {
-    const glossyTexture = useTexture('./textures/baked_glossy.jpg')
-    glossyTexture.flipY = false
-    glossyTexture.colorSpace = THREE.SRGBColorSpace
+    const dayTexture = useTexture('./textures/day/baked_glossy.jpg')
+    const nightTexture = useTexture('./textures/night/baked_glossy.jpg')
+
+
+    const materialMap = (texture === "day") ? dayTexture : nightTexture
+    materialMap.colorSpace = THREE.SRGBColorSpace
+    materialMap.flipY = false
+    materialMap.needsUpdate = true
+    
 
     const glossyRoughness = useTexture('./textures/baked_glossy_roughness.jpg')
     glossyRoughness.flipY = false
 
-    const blackMatCapTexture = useTexture('./textures/black_matcap.png')
+
+    const dayMatcap = useTexture('./textures/day/black_matcap.png')
+    const nightMatcap = useTexture('./textures/night/black_matcap.png')
+
+    const matcapTexture = (texture === "day") ? dayMatcap : nightMatcap
+    matcapTexture.needsUpdate = true
 
 
-    //custom material for glossy objects
-    const [ meshBakedMaterial ] = useState(() => new MeshBakedMaterial({map: glossyTexture, roughness: 3, roughnessMap: glossyRoughness}))
+    const roughnessValue = (texture === "day") ? 3 : 1.5
 
+
+    //custom material for glossy objects roughness 3 daytime
+    const meshBakedMaterial =  new MeshBakedMaterial({map: materialMap, roughness: roughnessValue, roughnessMap: glossyRoughness})
     
     return <>
         <mesh 
@@ -28,11 +41,11 @@ export default function Tabletop( {glossyObjects, tabletop, pitcher} )
         />
 
         <mesh geometry={ tabletop.geometry } position={ tabletop.position }>
-            <meshBasicMaterial map={ glossyTexture } />
+            <meshBasicMaterial map={ materialMap } />
         </mesh>
 
         <mesh geometry ={ pitcher.geometry } position={ pitcher.position }>
-            <meshMatcapMaterial matcap={blackMatCapTexture}/>
+            <meshMatcapMaterial matcap={matcapTexture}/>
         </mesh>
     </>
 }
