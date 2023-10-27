@@ -13,22 +13,11 @@ import Painting from './Painting.jsx'
 
 export default function World()
 {
-    const fov = 42
-    let lerpedFov = fov
-    const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
-    const orbitRef = useRef()
-
-    
-
-    // const [texture, setTexture] = useState('day')
-
+    //set texture as day, or retrieve setting from local storage if available
     const [texture, setTexture] = useState(() => {
         const savedTexture = localStorage.getItem('texture') || 'day';
         return savedTexture;
       });
-
-    
-    const click = () => texture === 'day' ? setTexture('night') : setTexture('day')
 
 
     useEffect(() =>
@@ -37,18 +26,42 @@ export default function World()
         setTexture(savedTexture)
     }, [])
 
+
     useEffect(() =>
     {
         localStorage.setItem('texture', texture)
     }, [texture])
 
 
+    //set initial painting state based on scene texture
+    const [paintingState, setPainting] = useState(texture)
+
+    
+    const toggleTexture = () => 
+    {
+        //if painting and scene are the same texture, do nothing
+        if (paintingState === texture ) return
+
+        //change scene texture
+        texture === 'day' ? setTexture('night') : setTexture('day')
+    }
+
+
+    //update camera settings based on distance from origin
+    const fov = 42
+    let lerpedFov = fov
+    const [ origin ] = useState(() => new THREE.Vector3(0, 0, 0))
+    const orbitRef = useRef()
+
+
     useFrame((state, delta) => {
 
+        //increase fov as camera moves towards the outside of the room
         let fovFactor = state.camera.position.distanceTo(origin) / 3.5
         state.camera.fov = Math.min(50, Math.max(fovFactor * fov, 20))
         state.camera.updateProjectionMatrix()
         
+        //smooth fov adjustment
         lerpedFov = THREE.MathUtils.lerp(lerpedFov, state.camera.fov, 10 * delta)
         state.camera.fov = lerpedFov
        
@@ -65,6 +78,7 @@ export default function World()
 
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
+
 
     return <>
         <Perf position="top-left"/>
@@ -83,7 +97,7 @@ export default function World()
             <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} texture={texture}/>
             <Mirror frame={ nodes.mirrorFrame } glass={ nodes.mirrorGlass } texture={texture} />
             <Floor texture={texture}/>
-            <Painting model={ nodes.painting } click={click} texture={texture}/>
+            <Painting model={ nodes.painting } setPainting = { setPainting } paintingState = { paintingState } toggleTexture={toggleTexture} texture={texture}/>
         </Center>
     </>
 }
