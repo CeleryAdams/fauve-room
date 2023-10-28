@@ -1,13 +1,12 @@
 import { useTexture } from '@react-three/drei'
 import { MeshBakedMaterial } from './MeshBakedMaterial.js'
-import { useState } from 'react'
 import * as THREE from 'three'
 
 
 export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
 {
     const dayTexture = useTexture('./textures/day/baked_glossy.jpg')
-    const nightTexture = useTexture('./textures/night/baked_glossy.jpg')
+    const nightTexture = useTexture('./textures/night/baked_glossy_night.jpg')
 
 
     const materialMap = (texture === "day") ? dayTexture : nightTexture
@@ -21,7 +20,7 @@ export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
 
 
     const dayMatcap = useTexture('./textures/day/black_matcap.png')
-    const nightMatcap = useTexture('./textures/night/black_matcap.png')
+    const nightMatcap = useTexture('./textures/night/black_matcap_night.png')
 
     const matcapTexture = (texture === "day") ? dayMatcap : nightMatcap
     matcapTexture.needsUpdate = true
@@ -49,3 +48,5 @@ export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
         </mesh>
     </>
 }
+useTexture.preload('./textures/night/baked_glossy_night.jpg')
+useTexture.preload('./textures/night/black_matcap_night.png')

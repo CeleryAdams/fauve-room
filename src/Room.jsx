@@ -5,7 +5,7 @@ export default function Room( {model, texture} )
 {
 
     const dayTexture = useTexture('./textures/day/baked_matte.jpg')
-    const nightTexture = useTexture('./textures/night/baked_matte.jpg')
+    const nightTexture = useTexture('./textures/night/baked_matte_night.jpg')
 
         
 
@@ -21,4 +21,4 @@ export default function Room( {model, texture} )
     </>
 }
 
-useTexture.preload('./textures/baked_matte_recolor.jpg')
+useTexture.preload('./textures/night/baked_matte_night.jpg')

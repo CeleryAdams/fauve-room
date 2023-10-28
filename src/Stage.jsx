@@ -38,12 +38,12 @@ export default function Stage( {texture} )
     ]
 
     const nightEnvironment = [
-        './environment/night/px.jpg',
-        './environment/night/nx.jpg',
-        './environment/night/py.jpg',
-        './environment/night/ny.jpg',
-        './environment/night/pz.jpg',
-        './environment/night/nz.jpg',
+        './environment/night/px_night.jpg',
+        './environment/night/nx_night.jpg',
+        './environment/night/py_night.jpg',
+        './environment/night/ny_night.jpg',
+        './environment/night/pz_night.jpg',
+        './environment/night/nz_night.jpg',
     ]
 
 

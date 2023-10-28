@@ -6,7 +6,7 @@ import { useTexture } from '@react-three/drei'
 export default function Mirror({ frame, glass, texture })
 {
     const dayMatcap = useTexture('./textures/day/gilt_matcap.png')
-    const nightMatcap = useTexture('./textures/night/gilt_matcap.png')
+    const nightMatcap = useTexture('./textures/night/gilt_matcap_night.png')
     
     const matcapTexture = (texture === "day") ? dayMatcap : nightMatcap
     matcapTexture.needsUpdate = true

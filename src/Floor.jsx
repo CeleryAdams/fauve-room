@@ -4,7 +4,7 @@ import { MeshReflectorMaterial, useTexture } from '@react-three/drei'
 export default function Floor( {texture} )
 {
     const dayTexture = useTexture('./textures/day/floor_1k.jpg')
-    const nightTexture = useTexture('./textures/night/floor_1k.jpg')
+    const nightTexture = useTexture('./textures/night/floor_1k_night.jpg')
 
 
     const floorRoughness = useTexture('./textures/floor_roughness.jpg')
@@ -34,3 +34,5 @@ export default function Floor( {texture} )
         </mesh>
     </>
 }
+
+useTexture.preload('./textures/night/floor_1k_night.jpg')

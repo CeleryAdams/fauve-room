@@ -32,3 +32,5 @@ export default function Painting( {model, paintingState, setPainting, toggleText
         </mesh>
     </>
 }
+
+useTexture.preload('./textures/painting/table_night.jpg')

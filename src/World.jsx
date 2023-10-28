@@ -1,7 +1,7 @@
 import { Center, OrbitControls, useGLTF} from '@react-three/drei'
 import * as THREE from 'three'
 import { Perf } from 'r3f-perf'
-import { useRef, useState, useEffect } from 'react'
+import { Suspense, useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import Stage from './Stage.jsx'
 import Room from './Room.jsx'
@@ -90,8 +90,11 @@ export default function World()
             zoomSpeed = { 0.7 }    
             panSpeed = {0.8}
         />
-
-        <Stage texture={texture}/>
+        
+        <Suspense>
+            <Stage texture={texture}/>
+        </Suspense>
+        
         <Center >
             <Room model={ nodes.matte } texture={texture}/>
             <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} texture={texture}/>
