@@ -11,16 +11,16 @@ export default function Stage( {texture} )
 
     //     lightPosition:
     //     {
-    //         value: [ 3.37, 1, 0 ],
+    //         value: [ 3.4, 0.3, 0 ],
     //         step: 0.1
     //     },
 
     //     lightIntensity:
     //     {
-    //         value: 15,
+    //         value: 12,
     //         step: 0.1
     //     },
-    //     lightColor: '#e2dccb',
+    //     lightColor: '#3c2d52',
     // })
 
 

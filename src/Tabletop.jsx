@@ -20,7 +20,7 @@ export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
 
 
     const dayMatcap = useTexture('./textures/day/black_matcap.png')
-    const nightMatcap = useTexture('./textures/night/black_matcap_night.png')
+    const nightMatcap = useTexture('./textures/night/black_matcap_night.jpg')
 
     const matcapTexture = (texture === "day") ? dayMatcap : nightMatcap
     matcapTexture.needsUpdate = true
@@ -49,4 +49,4 @@ export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
     </>
 }
 useTexture.preload('./textures/night/baked_glossy_night.jpg')
-useTexture.preload('./textures/night/black_matcap_night.png')
+useTexture.preload('./textures/night/black_matcap_night.jpg')
