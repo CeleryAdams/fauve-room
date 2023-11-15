@@ -1,7 +1,7 @@
 import { useTexture } from '@react-three/drei'
 
 
-export default function Room( {model, texture, setView} )
+export default function Room( {model, texture} )
 {
 
     const dayTexture = useTexture('./textures/day/baked_matte.jpg')
@@ -15,7 +15,7 @@ export default function Room( {model, texture, setView} )
     
 
     return <>
-        <mesh geometry={ model.geometry } position={ model.position } onClick={() => setView('mirror')}>
+        <mesh geometry={ model.geometry } position={ model.position }>
             <meshBasicMaterial map={ materialMap } />
         </mesh>
     </>

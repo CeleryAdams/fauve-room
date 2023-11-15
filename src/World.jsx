@@ -66,7 +66,7 @@ export default function World()
         state.camera.updateProjectionMatrix()
         
         //smooth fov adjustment
-        lerpedFov = THREE.MathUtils.lerp(lerpedFov, state.camera.fov, 10 * delta)
+        lerpedFov = THREE.MathUtils.lerp(lerpedFov, state.camera.fov, 5 * delta)
         state.camera.fov = lerpedFov
        
         //set panning limits
@@ -78,23 +78,21 @@ export default function World()
         state.camera.near = Math.pow(fovFactor, 1.9) * 1.6
 
 
-        // lerp to target view, timeout to avoid janky initial movement
-        // if (!userInteracted && targetView)
-        // {
-        //     setTimeout(() => 
-        //     {
-        //         lerpToView(targetView, state, delta)
-        //         if (state.camera.position.distanceTo(targetView.cameraPosition) < 0.05 &&
-        //             orbitRef.current.target.distanceTo(targetView.orbitTarget) < 0.05 &&
-        //             state.camera.quaternion.angleTo(targetQuaternion) < 0.05)
-        //         {
-        //             console.log('target set to null')
-        //             setTargetView(null)
-        //         }
-        //     }, '18')
-        // }
-
-        // console.log(state.camera.position, state.camera.rotation, orbitRef.current.target)
+        // lerp to target view, timeout to reduce janky initial movement
+        if (!userInteracted && targetView)
+        {
+            setTimeout(() => 
+            {
+                lerpToView(targetView, state, delta)
+                if (state.camera.position.distanceTo(targetView.cameraPosition) < 0.05 &&
+                    orbitRef.current.target.distanceTo(targetView.orbitTarget) < 0.05 &&
+                    state.camera.quaternion.angleTo(targetQuaternion) < 0.05)
+                {
+                    console.log('target set to null')
+                    setTargetView(null)
+                }
+            }, 16)
+        }
 
     })
 
@@ -109,32 +107,29 @@ export default function World()
     [
         {
             name: 'portrait',
-            device: 'desktop',
             cameraPosition: new THREE.Vector3(1.45, -0.3, -2.9),
             cameraRotation: new THREE.Euler(3.12, 0.33, -3.14),
             orbitTarget: new THREE.Vector3(1.37, -0.27, -0.16),
         },
         {
             name: 'mirror',
-            device: 'desktop',
             cameraPosition: new THREE.Vector3(-1.16, -0.2, 1.76),
             cameraRotation: new THREE.Euler(-0.05, -0.29, -0.01),
             orbitTarget: new THREE.Vector3(-0.6, -0.3, -0.15),
         },
-        // {
-        //     name: 'tabletop',
-        //     device: 'desktop',
-        //     cameraPosition: new THREE.Vector3(-1.3, -0.04, 1.57),
-        //     cameraRotation: new THREE.Euler(-0.43, -0.65, -0.27),
-        //     orbitTarget: new THREE.Vector3(-0.2, -0.65, 0.25),
-        // },
-        // {
-        //     name: 'fish',
-        //     device: 'desktop',
-        //     cameraPosition: new THREE.Vector3(1.2, -0.15, 1.2),
-        //     cameraRotation: new THREE.Euler(-0.58, 0.94, 0.49),
-        //     orbitTarget: new THREE.Vector3(-0.24, -0.7, 0.36),
-        // },
+        {
+            name: 'portrait-vertical',
+            cameraPosition: new THREE.Vector3(1.26, -0.32, -2.63),
+            cameraRotation: new THREE.Euler(3.13, 0.03, -3.14),
+            orbitTarget: new THREE.Vector3(1.2, -0.3, -0.16),
+        },
+        {
+            name: 'mirror-vertical',
+            cameraPosition: new THREE.Vector3(-1, -0.17, 2.58),
+            cameraRotation: new THREE.Euler(-0.08, -0.2, -0.2),
+            orbitTarget: new THREE.Vector3(-0.43, -0.38, -0.13),
+        },
+
     ]
     
     //set targetview when target is clicked
@@ -148,6 +143,7 @@ export default function World()
                 }
         }
     }
+
 
     //lerp from current view to target view, to be called in useFrame
     const lerpToView = (view, state, delta) => {
@@ -169,19 +165,37 @@ export default function World()
     useEffect(() => {
         const handleClick = (event) => {
             event.stopPropagation()
-            setUserInteracted(true);
+            setUserInteracted(true)
         }
     
         document.addEventListener('click', handleClick);
+        document.addEventListener('touchstart', handleClick);
+        document.addEventListener('touchmove', handleClick);
     
         return () => {
             document.removeEventListener('click', handleClick);
+            document.removeEventListener('touchstart', handleClick);
+            document.removeEventListener('touchmove', handleClick);
         }
-      }, [])
+    }, [])
 
+    
+    //detect touch device
+    // const isTouchDevice = () => {
+    //     return (('ontouchstart' in window) ||
+    //        (navigator.maxTouchPoints > 0) ||
+    //        (navigator.msMaxTouchPoints > 0))
+    //   }
+
+    //detect vertical orientation
+    const isVerticalOrientation = () => {
+        return window.innerHeight > window.innerWidth
+    }
+
+    
 
     return <>
-        <Perf position="top-left"/>
+        {/* <Perf position="top-left"/> */}
         <OrbitControls makeDefault zoomToCursor
             ref = { orbitRef }
             target={[ 0, -0.4, 0]}
@@ -196,7 +210,44 @@ export default function World()
         </Suspense>
         
         <Center >
-            <Room model={ nodes.matte } texture={texture} setView={setView}/>
+            <mesh 
+                position={[1.28, 1.43, 2.75]} 
+                scale={[0.48, 0.6, 0.1]}
+                onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                onPointerLeave={() => document.body.style.cursor = 'default'}
+                onClick={() => 
+                    {
+                        if (isVerticalOrientation())
+                        {
+                            setView('portrait-vertical')
+                        }
+                        else setView('portrait')
+                    }}
+            >
+                <boxGeometry />
+                <meshBasicMaterial visible={false}/>
+            </mesh>
+
+            <mesh 
+                position={[0.05, 1.23, -2.67]} 
+                scale={[0.72, 0.07, 0.63]}
+                rotation={[Math.PI/2, 0, 0]}
+                onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                onPointerLeave={() => document.body.style.cursor = 'default'}
+                onClick={() => 
+                    {
+                        if (isVerticalOrientation())
+                        {
+                            setView('mirror-vertical')
+                        }
+                        else setView('mirror')
+                    }}
+            >
+                <cylinderGeometry args={[1, 1, 1, 8]}/>
+                <meshBasicMaterial visible={false}/>
+            </mesh>
+
+            <Room model={ nodes.matte } texture={texture}/>
             <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} texture={texture}/>
             <Mirror frame={ nodes.mirrorFrame } glass={ nodes.mirrorGlass } texture={texture} />
             <Floor texture={texture}/>
