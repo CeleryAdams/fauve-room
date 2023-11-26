@@ -20,15 +20,31 @@ html, body, #root
 }
 
 
-.fish-container,
-.dance-container,
-.jug-container
+.fish-container
 {
     position: absolute;
     bottom: 45vh;
     left: 55vw;   
     width: min(550px, 35vw);
-    height: calc(min(525px, 35vw) * 0.54);
+    height: calc(min(550px, 35vw) * 0.54);
+}
+
+.dance-container
+{
+    position: absolute;
+    top: 15vh;
+    left: 7vw;   
+    width: min(550px, 35vw);
+    height: calc(min(550px, 35vw) * 0.77);
+}
+
+.jug-container
+{
+    position: absolute;
+    left: 17vw;
+    bottom: 20vh;
+    height: min(550px, 55vh);
+    width: calc(min(550px, 55vh) * 0.78)
 }
 
 .fish-painting,
@@ -44,6 +60,12 @@ html, body, #root
     outline: 10px solid rgba(254, 207, 85, 1);
 }
 
+.jug-painting
+{
+    height: min(550px, 55vh);
+    width: calc(min(550px, 55vh) * 0.78)
+}
+
 .fish-text,
 .dance-text,
 .jug-text
@@ -54,13 +76,31 @@ html, body, #root
     height: fit-content;
     color: #0E1261;
     /* background-color: rgba(203, 207, 255, 0.7); */
-    background-color: rgba(210, 173, 255, 0.8);
     padding: 0px 15px;
     border-radius: 2px;
     font-size: max(16px, 1.6vh);
+    /* top: 18px; */
+}
+
+.fish-text
+{
+    background-color: rgba(210, 173, 255, 0.8);
     right: -30px;
     bottom: calc(min(550px, 35vw) * 0.54 + 30px);
-    /* top: 18px; */
+}
+
+.dance-text
+{
+    background-color:rgba(255, 202, 214, 0.8);
+    left: -30px;
+    bottom: calc(min(550px, 35vw) * 0.78 + 30px);
+}
+
+.jug-text
+{
+    background-color:rgba(236, 181, 217, 0.8);
+    right: -30px;
+    top: calc(min(550px, 55vh) + 25px);
 }
 
 .close

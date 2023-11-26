@@ -17,7 +17,7 @@ export default function Jug({setImage})
             }}
         >
             <div className='jug-text' style={{opacity: opacity}}>
-                Atelier I, Georges Braque (1949)
+                Atelier I, Georges Braque 1949
             </div>
             <img 
                 className = 'jug-painting' 
