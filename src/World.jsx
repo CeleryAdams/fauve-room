@@ -1,6 +1,5 @@
 import { Center, OrbitControls, useGLTF} from '@react-three/drei'
 import * as THREE from 'three'
-import { Perf } from 'r3f-perf'
 import { Suspense, useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import Stage from './Stage.jsx'
@@ -9,13 +8,15 @@ import Tabletop from './Tabletop.jsx'
 import Mirror from './Mirror.jsx'
 import Floor from './Floor.jsx'
 import Painting from './Painting.jsx'
+import { useControls } from 'leva'
 
 
-export default function World()
+export default function World( {image, setImage} )
 {
     //load model
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
-
+    const tableclothProxy = useGLTF('./models/tablecloth-proxy.glb')
+    const proxyMesh = tableclothProxy.nodes.tableclothProxy
 
     //set texture as day, or retrieve setting from local storage if available
     const [texture, setTexture] = useState(() => {
@@ -192,6 +193,25 @@ export default function World()
         return window.innerHeight > window.innerWidth
     }
 
+    const { meshPosition, meshScale, meshRotation } = useControls({
+        meshPosition:
+        {
+            value: [0.3,0.8,0.3],
+            step: 0.01
+        },
+        meshScale:
+        {
+            value: [0.1,0.01,0.3],
+            step: 0.01
+        },
+        meshRotation:
+        {
+            value: [0,0,0],
+            step: 0.01
+        },
+        
+    })
+
     
 
     return <>
@@ -210,6 +230,7 @@ export default function World()
         </Suspense>
         
         <Center >
+            {/* portrait proxy */}
             <mesh 
                 position={[1.28, 1.43, 2.75]} 
                 scale={[0.48, 0.6, 0.1]}
@@ -227,7 +248,8 @@ export default function World()
                 <boxGeometry />
                 <meshBasicMaterial visible={false}/>
             </mesh>
-
+                
+            {/* mirror proxy */}
             <mesh 
                 position={[0.05, 1.23, -2.67]} 
                 scale={[0.72, 0.07, 0.63]}
@@ -246,6 +268,55 @@ export default function World()
                 <cylinderGeometry args={[1, 1, 1, 8]}/>
                 <meshBasicMaterial visible={false}/>
             </mesh>
+
+            {/* fish proxy */}
+            <mesh
+                 position={[0.3, 0.81, 0.34]} 
+                 scale={[0.07, 0.03, 0.28]}
+                 rotation-y={-0.36}
+                 onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                 onPointerLeave={() => document.body.style.cursor = 'default'}
+                 onClick={(event) => 
+                    {
+                        (image !== 'fish') ? setImage('fish') : setImage(null)
+                        event.stopPropagation()
+                    }}
+            >
+                <boxGeometry />
+                <meshBasicMaterial visible={false}/>
+            </mesh>
+
+            {/* tablecloth proxy */}
+            <mesh
+                 geometry={ proxyMesh.geometry } 
+                 position={ proxyMesh.position  }
+                 onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                 onPointerLeave={() => document.body.style.cursor = 'default'}
+                 onClick={(event) => 
+                    {
+                        (image !== 'dance') ? setImage('dance') : setImage(null)
+                        event.stopPropagation()
+                    }}
+            >
+                <meshBasicMaterial visible={false}/>
+            </mesh>
+
+            {/* jug proxy */}
+            <mesh
+                 position={[0.12, 0.99, -0.16]} 
+                 scale={[0.12, 0.28, 0.12]}
+                 onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                 onPointerLeave={() => document.body.style.cursor = 'default'}
+                 onClick={(event) => 
+                    {
+                        (image !== 'jug') ? setImage('jug') : setImage(null)
+                        event.stopPropagation()
+                    }}
+            >
+                <cylinderGeometry args={[1, 1, 1, 8]}/>
+                <meshBasicMaterial visible={false}/>
+            </mesh>
+
 
             <Room model={ nodes.matte } texture={texture}/>
             <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} texture={texture}/>
