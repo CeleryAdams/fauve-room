@@ -319,10 +319,26 @@ export default function World( {image, setImage} )
 
 
             <Room model={ nodes.matte } texture={texture}/>
-            <Tabletop glossyObjects={ nodes.glossy } tabletop={nodes.tabletop} pitcher={nodes.pitcher} texture={texture}/>
-            <Mirror frame={ nodes.mirrorFrame } glass={ nodes.mirrorGlass } texture={texture} />
+            <Tabletop 
+                glossyObjects={ nodes.glossy } 
+                tabletop={nodes.tabletop} 
+                pitcher={nodes.pitcher} 
+                texture={texture}
+            />
+            <Mirror 
+                frame={ nodes.mirrorFrame } 
+                glass={ nodes.mirrorGlass } 
+                texture={texture} 
+            />
             <Floor texture={texture}/>
-            <Painting model={ nodes.painting } setPainting = { setPainting } paintingState = { paintingState } toggleTexture={toggleTexture} texture={texture}/>
+            <Painting 
+                model={ nodes.painting } 
+                setPainting = { setPainting } 
+                paintingState = { paintingState } 
+                toggleTexture={toggleTexture} 
+                texture={texture}
+                view={targetView}
+            />
         </Center>
     </>
 }
