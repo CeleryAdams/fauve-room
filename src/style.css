@@ -23,29 +23,35 @@ html, body, #root
 .fish-container
 {
     position: absolute;
-    bottom: 45vh;
-    left: 55vw;   
+    /* bottom: 45vh; */
+    top: 20vh;
+    right: 10vw;   
     width: min(550px, 35vw);
+    /* min-width: 400px; */
     height: calc(min(550px, 35vw) * 0.54);
 }
+
 
 .dance-container
 {
     position: absolute;
-    top: 15vh;
+    /* bottom: 35vh; */
+    top: 20vh;
     left: 7vw;   
     width: min(550px, 35vw);
+    /* min-width: 400px; */
     height: calc(min(550px, 35vw) * 0.77);
 }
 
 .jug-container
 {
     position: absolute;
-    left: 17vw;
+    left: 16vw;
     bottom: 20vh;
     height: min(550px, 55vh);
     width: calc(min(550px, 55vh) * 0.78)
 }
+
 
 .fish-painting,
 .dance-painting,
@@ -59,6 +65,17 @@ html, body, #root
     left: 0;
     outline: 10px solid rgba(254, 207, 85, 1);
 }
+
+.fish-painting
+{
+    height: calc(min(550px, 35vw) * 0.54);
+}
+
+.dance-painting
+{
+    height: calc(min(550px, 35vw) * 0.77);
+}
+
 
 .jug-painting
 {
@@ -86,22 +103,26 @@ html, body, #root
 {
     background-color: rgba(210, 173, 255, 0.8);
     right: -30px;
-    bottom: calc(min(550px, 35vw) * 0.54 + 30px);
+    /* top: -70px; */
+    top: min(-60px, -7.5vh);
+
 }
 
 .dance-text
 {
     background-color:rgba(255, 202, 214, 0.8);
     left: -30px;
-    bottom: calc(min(550px, 35vw) * 0.78 + 30px);
+    /* top: -75px; */
+    top: min(-60px, -7.5vh);
 }
 
 .jug-text
 {
     background-color:rgba(236, 181, 217, 0.8);
     right: -30px;
-    top: calc(min(550px, 55vh) + 25px);
+    bottom: min(-60px, -7.5vh);
 }
+
 
 .close
 {
@@ -115,4 +136,48 @@ html, body, #root
     justify-content: center;
     align-items: center;
     color: rgb(29, 0, 104);
+}
+
+@media screen and (max-aspect-ratio: 1/1)
+{
+    .fish-container, .fish-painting
+    {
+        width: 80vw;
+        height: calc(80vw * 0.54);
+    }
+    .fish-container
+    {
+        bottom: 45vh;
+        top: auto;
+    }
+
+
+    .dance-container, .dance-painting
+    {
+        width: 80vw;
+        height: calc(80vw * 0.77);
+    }
+    .dance-container
+    {
+        top: 15vh;
+        bottom: auto;
+    }
+
+
+    .jug-container, .jug-painting
+    {
+        height: 40vh;
+        width: calc(40vh * 0.78);
+    }
+    .jug-container
+    {
+        top: 9vh;
+        bottom: auto;
+    }
+
+
+    .fish-text, .dance-text, .jug-text
+    {
+        top: min(-60px, -7vh);
+    }
 }

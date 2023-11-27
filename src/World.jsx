@@ -8,7 +8,7 @@ import Tabletop from './Tabletop.jsx'
 import Mirror from './Mirror.jsx'
 import Floor from './Floor.jsx'
 import Painting from './Painting.jsx'
-import { useControls } from 'leva'
+// import { useControls } from 'leva'
 
 
 export default function World( {image, setImage} )
@@ -193,24 +193,24 @@ export default function World( {image, setImage} )
         return window.innerHeight > window.innerWidth
     }
 
-    const { meshPosition, meshScale, meshRotation } = useControls({
-        meshPosition:
-        {
-            value: [0.3,0.8,0.3],
-            step: 0.01
-        },
-        meshScale:
-        {
-            value: [0.1,0.01,0.3],
-            step: 0.01
-        },
-        meshRotation:
-        {
-            value: [0,0,0],
-            step: 0.01
-        },
+    // const { meshPosition, meshScale, meshRotation } = useControls({
+    //     meshPosition:
+    //     {
+    //         value: [0.3,0.8,0.3],
+    //         step: 0.01
+    //     },
+    //     meshScale:
+    //     {
+    //         value: [0.1,0.01,0.3],
+    //         step: 0.01
+    //     },
+    //     meshRotation:
+    //     {
+    //         value: [0,0,0],
+    //         step: 0.01
+    //     },
         
-    })
+    // })
 
     
 
