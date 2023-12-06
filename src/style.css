@@ -24,11 +24,11 @@ html, body, #root
 {
     position: absolute;
     /* bottom: 45vh; */
-    top: 30vh;
+    top: 26vh;
     right: 10vw;   
-    width: min(550px, 35vw);
-    /* min-width: 400px; */
-    height: calc(min(550px, 35vw) * 0.54);
+    width: min(699px, 33vw);
+    height: calc(min(699px, 33vw) * 0.54);
+    animation: fadeIn 0.5s;
 }
 
 
@@ -38,9 +38,9 @@ html, body, #root
     /* bottom: 35vh; */
     top: 20vh;
     left: 7vw;   
-    width: min(550px, 35vw);
-    /* min-width: 400px; */
-    height: calc(min(550px, 35vw) * 0.77);
+    width: min(700px, 35vw);
+    height: calc(min(700px, 35vw) * 0.77);
+    animation: fadeIn 0.5s;
 }
 
 .jug-container
@@ -48,8 +48,14 @@ html, body, #root
     position: absolute;
     left: 16vw;
     bottom: 20vh;
-    height: min(550px, 55vh);
-    width: calc(min(550px, 55vh) * 0.78)
+    height: min(600px, 55vh);
+    width: calc(min(600px, 55vh) * 0.78);
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1;}
 }
 
 
@@ -59,7 +65,6 @@ html, body, #root
 {
     cursor: pointer;
     pointer-events: auto;
-    width: min(550px, 35vw);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -68,19 +73,21 @@ html, body, #root
 
 .fish-painting
 {
-    height: calc(min(550px, 35vw) * 0.54);
+    width: min(699px, 33vw);
+    height: calc(min(699px, 33vw) * 0.54);
 }
 
 .dance-painting
 {
-    height: calc(min(550px, 35vw) * 0.77);
+    width: min(700px, 35vw);
+    height: calc(min(700px, 35vw) * 0.77);
 }
 
 
 .jug-painting
 {
-    height: min(550px, 55vh);
-    width: calc(min(550px, 55vh) * 0.78)
+    height: min(600px, 55vh);
+    width: calc(min(600px, 55vh) * 0.78)
 }
 
 .fish-text,
@@ -104,7 +111,7 @@ html, body, #root
     background-color: rgba(210, 173, 255, 0.8);
     right: -30px;
     /* top: -70px; */
-    top: min(-60px, -7.5vh);
+    top: min(-60px, -6vh);
 
 }
 
@@ -113,14 +120,14 @@ html, body, #root
     background-color:rgba(255, 202, 214, 0.8);
     left: -30px;
     /* top: -75px; */
-    top: min(-60px, -7.5vh);
+    top: min(-60px, -6vh);
 }
 
 .jug-text
 {
     background-color:rgba(236, 181, 217, 0.8);
     right: -30px;
-    bottom: min(-60px, -7.5vh);
+    bottom: min(-60px, -6vh);
 }
 
 
@@ -147,19 +154,20 @@ html, body, #root
     }
     .fish-container
     {
-        bottom: 45vh;
+        bottom: 48vh;
         top: auto;
     }
 
 
     .dance-container, .dance-painting
     {
-        width: 80vw;
-        height: calc(80vw * 0.77);
+        width: 75vw;
+        height: calc(75vw * 0.77);
     }
     .dance-container
     {
         top: 15vh;
+        left: 10vw;
         bottom: auto;
     }
 

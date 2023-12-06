@@ -13,18 +13,19 @@ import Painting from './Painting.jsx'
 
 export default function World( {image, setImage} )
 {
-    //load model
+    //load models
     const { nodes } = useGLTF('./models/pitcher_scene.glb')
     const tableclothProxy = useGLTF('./models/tablecloth-proxy.glb')
     const proxyMesh = tableclothProxy.nodes.tableclothProxy
 
+
     //set texture as day, or retrieve setting from local storage if available
     const [texture, setTexture] = useState(() => {
-        const savedTexture = localStorage.getItem('texture') || 'day';
-        return savedTexture;
-      });
+        const savedTexture = localStorage.getItem('texture') || 'day'
+        return savedTexture
+      })
 
-
+    
     useEffect(() =>
     {
         const savedTexture = localStorage.getItem('texture') ?? "day"
@@ -36,6 +37,7 @@ export default function World( {image, setImage} )
     {
         localStorage.setItem('texture', texture)
     }, [texture])
+
 
 
     //set initial painting state based on scene texture
