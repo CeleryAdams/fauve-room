@@ -16,9 +16,9 @@ export default function Jug({setImage})
                 setOverlay(false)
             }}
         >
-            <div className='jug-text' style={{opacity: opacity}}>
+            {/* <div className='jug-text' style={{opacity: opacity}}>
                 Atelier I, Georges Braque 1949
-            </div>
+            </div> */}
             <img 
                 className = 'jug-painting' 
                 style={{opacity: opacity}}

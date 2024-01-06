@@ -35,8 +35,7 @@ html, body, #root
 .dance-container
 {
     position: absolute;
-    /* bottom: 35vh; */
-    top: 20vh;
+    top: 15vh;
     left: 7vw;   
     width: min(700px, 35vw);
     height: calc(min(700px, 35vw) * 0.77);

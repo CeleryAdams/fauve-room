@@ -16,9 +16,9 @@ export default function Dance({setImage})
                 setOverlay(false)
             }}
         >
-            <div className='dance-text' style={{opacity: opacity}}>
+            {/* <div className='dance-text' style={{opacity: opacity}}>
                 Still Life With 'Dance', Henri Matisse 1909
-            </div>
+            </div> */}
             <img 
                 className = 'dance-painting' 
                 style={{opacity: opacity}}

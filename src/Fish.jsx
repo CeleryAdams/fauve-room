@@ -16,9 +16,9 @@ export default function Fish({setImage})
                 setOverlay(false)
             }}
         >
-            <div className='fish-text' style={{opacity: opacity}}>
+            {/* <div className='fish-text' style={{opacity: opacity}}>
                 Fish in a Dish, Pierre Bonnard 1921
-            </div>
+            </div> */}
             <img 
                 className = 'fish-painting' 
                 style={{opacity: opacity}}
