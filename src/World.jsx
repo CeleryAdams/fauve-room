@@ -195,27 +195,6 @@ export default function World( {image, setImage} )
         return window.innerHeight > window.innerWidth
     }
 
-    // const { meshPosition, meshScale, meshRotation } = useControls({
-    //     meshPosition:
-    //     {
-    //         value: [0.3,0.8,0.3],
-    //         step: 0.01
-    //     },
-    //     meshScale:
-    //     {
-    //         value: [0.1,0.01,0.3],
-    //         step: 0.01
-    //     },
-    //     meshRotation:
-    //     {
-    //         value: [0,0,0],
-    //         step: 0.01
-    //     },
-        
-    // })
-
-    
-
     return <>
         {/* <Perf position="top-left"/> */}
         <OrbitControls makeDefault zoomToCursor
@@ -233,7 +212,7 @@ export default function World( {image, setImage} )
         
         <Center >
             {/* portrait proxy */}
-            <mesh 
+            {/* <mesh 
                 position={[1.28, 1.43, 2.75]} 
                 scale={[0.48, 0.6, 0.1]}
                 onPointerEnter={() => document.body.style.cursor = 'pointer'}
@@ -249,10 +228,10 @@ export default function World( {image, setImage} )
             >
                 <boxGeometry />
                 <meshBasicMaterial visible={false}/>
-            </mesh>
+            </mesh> */}
                 
             {/* mirror proxy */}
-            <mesh 
+            {/* <mesh 
                 position={[0.05, 1.23, -2.67]} 
                 scale={[0.72, 0.07, 0.63]}
                 rotation={[Math.PI/2, 0, 0]}
@@ -269,7 +248,7 @@ export default function World( {image, setImage} )
             >
                 <cylinderGeometry args={[1, 1, 1, 8]}/>
                 <meshBasicMaterial visible={false}/>
-            </mesh>
+            </mesh> */}
 
             {/* fish proxy */}
             <mesh
