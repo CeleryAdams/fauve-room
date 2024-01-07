@@ -6,15 +6,20 @@ import { Perf } from 'r3f-perf'
 import Fish from './Fish.jsx'
 import Dance from './Dance.jsx'
 import Jug from './Jug.jsx'
+import Table from './Table.jsx'
 
 export default function App()
 {
     const [ image, setImage ] = useState(null)
 
-    // useEffect(()=>
-    // {
-    //     console.log(image)
-    // }, [image])
+    useEffect(()=>
+    {
+        const handleKeyDown = (event) => event.key === 'Escape' && setImage(null)
+
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [])
 
     return <>
         <Canvas 
@@ -36,7 +41,10 @@ export default function App()
             { image === 'fish' && <Fish setImage={ setImage } />}
             { image === 'dance' && <Dance setImage={ setImage } />}
             { image === 'jug' && <Jug setImage={ setImage } />}
+            { image === 'table' && <Table setImage={ setImage } />}
         </div>
+
+        <button className='info'>i</button>
 
         <Loader />
     </>

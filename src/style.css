@@ -19,6 +19,29 @@ html, body, #root
     pointer-events: none;
 }
 
+.info {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    background-color: rgba(123, 61, 255, 0.0);
+    font-family: 'Inknut Antiqua', serif;
+    font-weight: 400;
+    color: rgb(181, 239, 255);
+    border: none;
+    outline-color: rgb(181, 239, 255);
+    outline-style: solid;
+    outline-width: 1.5px;
+    font-size: 16px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+    /* mix-blend-mode: difference; */
+}
+
 
 .fish-container
 {
@@ -28,6 +51,16 @@ html, body, #root
     right: 10vw;   
     width: min(699px, 33vw);
     height: calc(min(699px, 33vw) * 0.54);
+    animation: fadeIn 0.5s;
+}
+
+.table-container
+{
+    position: absolute;
+    top: 10vh;
+    left: 40vw;
+    width: min(490px, 30vw);
+    height: calc(min(490px, 30vw) * 0.76);
     animation: fadeIn 0.5s;
 }
 
@@ -60,7 +93,8 @@ html, body, #root
 
 .fish-painting,
 .dance-painting,
-.jug-painting
+.jug-painting,
+.table-painting
 {
     cursor: pointer;
     pointer-events: auto;
@@ -74,6 +108,12 @@ html, body, #root
 {
     width: min(699px, 33vw);
     height: calc(min(699px, 33vw) * 0.54);
+}
+
+.table-painting
+{
+    width: min(490px, 30vw);
+    height: calc(min(490px, 30vw) * 0.76);
 }
 
 .dance-painting
@@ -158,7 +198,7 @@ html, body, #root
     }
 
 
-    .dance-container, .dance-painting
+    .dance-container, .dance-painting, .table-container, .table-painting
     {
         width: 75vw;
         height: calc(75vw * 0.77);
@@ -168,6 +208,12 @@ html, body, #root
         top: 15vh;
         left: 10vw;
         bottom: auto;
+    }
+
+    .table-container
+    {
+        top: 12vh;
+        left: 15vw;
     }
 
 
@@ -186,5 +232,10 @@ html, body, #root
     .fish-text, .dance-text, .jug-text
     {
         top: min(-60px, -7vh);
+    }
+
+    .info 
+    {
+        left: 15px;
     }
 }

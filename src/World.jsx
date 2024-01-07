@@ -62,7 +62,6 @@ export default function World( {image, setImage} )
 
 
     useFrame((state, delta) => {
-
         //increase fov as camera moves towards the outside of the room
         let fovFactor = state.camera.position.distanceTo(origin) / 3.5
         state.camera.fov = Math.min(45, Math.max(fovFactor * fov, 20))
@@ -212,7 +211,7 @@ export default function World( {image, setImage} )
         
         <Center >
             {/* portrait proxy */}
-            {/* <mesh 
+            <mesh 
                 position={[1.28, 1.43, 2.75]} 
                 scale={[0.48, 0.6, 0.1]}
                 onPointerEnter={() => document.body.style.cursor = 'pointer'}
@@ -228,7 +227,7 @@ export default function World( {image, setImage} )
             >
                 <boxGeometry />
                 <meshBasicMaterial visible={false}/>
-            </mesh> */}
+            </mesh>
                 
             {/* mirror proxy */}
             {/* <mesh 
@@ -266,6 +265,23 @@ export default function World( {image, setImage} )
                 <boxGeometry />
                 <meshBasicMaterial visible={false}/>
             </mesh>
+
+            {/* table proxy */}
+            <mesh
+                 position={[0, 0.773, 0]} 
+                 rotation-x={[-Math.PI/2]}
+                 onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                 onPointerLeave={() => document.body.style.cursor = 'default'}
+                 onClick={(event) => 
+                    {
+                        (image !== 'table') ? setImage('table') : setImage(null)
+                        event.stopPropagation()
+                    }}
+            >
+                <planeGeometry args={[1, 1.67]}/>
+                <meshBasicMaterial visible={false}/>
+            </mesh>
+            
 
             {/* tablecloth proxy */}
             <mesh
