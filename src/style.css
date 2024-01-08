@@ -52,6 +52,7 @@ html, body, #root
     transform: translateX(-50%) translateY(-50%);
     background-color: rgba(255, 240, 240, 0.85);
     border: 15px solid rgba(254, 207, 85, 1);
+    filter: drop-shadow(3px 3px 2px rgba(0, 52, 238, 0.15));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -145,6 +146,7 @@ li
     bottom: 0;
     left: 0;
     outline: 10px solid rgba(254, 207, 85, 1);
+    filter: drop-shadow(3px 3px 2px rgba(0, 32, 146, 0.15))
 }
 
 .fish-painting
@@ -213,6 +215,7 @@ li
 {
     font-size: max(40px, 5vh);
     font-style: 'Alegreya', serif;
+    font-weight: 500;
     position: absolute;
     width: 100%;
     height: 100%;
