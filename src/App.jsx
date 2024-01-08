@@ -3,14 +3,18 @@ import World from './World.jsx'
 import { Suspense, useState, useEffect } from 'react'
 import { useProgress, Html, Loader, Preload } from "@react-three/drei"
 import { Perf } from 'r3f-perf'
-import Fish from './Fish.jsx'
-import Dance from './Dance.jsx'
-import Jug from './Jug.jsx'
-import Table from './Table.jsx'
+import Fish from './PaintingOverlay.jsx'
+
 
 export default function App()
 {
     const [ image, setImage ] = useState(null)
+
+
+    useEffect(()=>
+    {
+        console.log(image)
+    }, [image])
 
     useEffect(()=>
     {
@@ -20,6 +24,7 @@ export default function App()
 
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
+
 
     return <>
         <Canvas 
@@ -37,15 +42,13 @@ export default function App()
         </Suspense>
         </Canvas>
 
+
         <div className='overlay'>
-            { image === 'fish' && <Fish setImage={ setImage } />}
-            { image === 'dance' && <Dance setImage={ setImage } />}
-            { image === 'jug' && <Jug setImage={ setImage } />}
-            { image === 'table' && <Table setImage={ setImage } />}
+            { image && <Fish setImage={ setImage } image={ image } />}
         </div>
 
         <button className='info'>i</button>
-
+        
         <Loader />
     </>
 }

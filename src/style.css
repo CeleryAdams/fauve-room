@@ -24,14 +24,14 @@ html, body, #root
     bottom: 15px;
     left: 20px;
     background-color: rgba(123, 61, 255, 0.0);
-    font-family: 'Inknut Antiqua', serif;
+    font-family:'Inknut Antiqua', serif;
     font-weight: 400;
     color: rgb(181, 239, 255);
     border: none;
     outline-color: rgb(181, 239, 255);
     outline-style: solid;
     outline-width: 1.5px;
-    font-size: 16px;
+    font-size: 17px;
     height: 30px;
     width: 30px;
     display: flex;
@@ -47,7 +47,7 @@ html, body, #root
 {
     position: absolute;
     /* bottom: 45vh; */
-    top: 26vh;
+    top: 30vh;
     right: 10vw;   
     width: min(699px, 33vw);
     height: calc(min(699px, 33vw) * 0.54);
@@ -172,16 +172,28 @@ html, body, #root
 
 .close
 {
-    /* font-family: 'Syne', sans-serif; */
-    /* font-family: 'Inknut Antiqua', serif; */
-    font-size: max(30px, 4vh);
+    font-size: max(40px, 5vh);
+    font-style: 'Alegreya', serif;
     position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: rgb(29, 0, 104);
+    color: rgb(92, 130, 255);
+    mix-blend-mode: screen;
+    
+}
+
+.close-icon
+{
+    width: min(23px, 4vw);
+    height: auto;
+    position: absolute;
+    right: max(-40px, -7.5vw);
+    top: max(-40px, -7.5vw);
+    cursor: pointer;
+    pointer-events: auto;
 }
 
 @media screen and (max-aspect-ratio: 1/1)
