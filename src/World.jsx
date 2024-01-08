@@ -47,7 +47,7 @@ export default function World( {image, setImage} )
     const toggleTexture = () => 
     {
         //if painting and scene are the same texture, do nothing
-        if (paintingState === texture ) return
+        // if (paintingState === texture ) return
 
         //change scene texture
         texture === 'day' ? setTexture('night') : setTexture('day')
