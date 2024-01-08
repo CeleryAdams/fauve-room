@@ -16,7 +16,7 @@ export default function Painting( {model, paintingState, setPainting, toggleText
 
     useEffect(()=>
     {
-        if(view && view.name==='portrait')
+        if(view && (view.name==='portrait' || view.name==='portrait-vertical'))
         {
             console.log('view set to portrait')
             setDayTexture(portraitDayTexture)

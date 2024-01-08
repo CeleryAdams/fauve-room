@@ -3,22 +3,28 @@ import World from './World.jsx'
 import { Suspense, useState, useEffect } from 'react'
 import { useProgress, Html, Loader, Preload } from "@react-three/drei"
 import { Perf } from 'r3f-perf'
-import Fish from './PaintingOverlay.jsx'
+import PaintingOverlay from './PaintingOverlay.jsx'
+import CloseIcon from '/images/close.svg'
 
 
 export default function App()
 {
     const [ image, setImage ] = useState(null)
+    const [ showInfo, setShowInfo ] = useState(false)
+
+    const [opacity, setOpacity] = useState(1.0)
 
 
     useEffect(()=>
     {
-        console.log(image)
-    }, [image])
-
-    useEffect(()=>
-    {
-        const handleKeyDown = (event) => event.key === 'Escape' && setImage(null)
+        const handleKeyDown = (event) => 
+        {
+            if (event.key === 'Escape')
+            {
+                setImage(null)
+                setShowInfo(false)
+            }
+        }
 
         window.addEventListener('keydown', handleKeyDown)
 
@@ -43,12 +49,42 @@ export default function App()
         </Canvas>
 
 
-        <div className='overlay'>
-            { image && <Fish setImage={ setImage } image={ image } />}
+        <div className='painting-overlay'>
+            { image && <PaintingOverlay setImage={ setImage } image={ image } />}
         </div>
 
-        <button className='info'>i</button>
-        
+        <button className='info-button' onClick={()=>setShowInfo(!showInfo)}>i</button>
+        {showInfo && 
+            <div className='info-overlay'
+                style={{opacity: opacity}}
+            >
+                <ul>
+                    <li><span className='bold'>jug</span> from Georges Braque, <span className='italic'>Atelier I</span> (1949) </li>
+                    <li><span className='bold'>fish</span> from Pierre Bonnard, <span className='italic'>Fish in a Dish</span> (1921) </li>
+                    <li><span className='bold'>tablecloth</span> from Henri Matisse, <span className='italic'>Dance</span> (1909) </li>
+                    <li><span className='bold'>table</span> from Pierre Bonnard, <span className='italic'>Fruit Basket</span> (1929) </li>
+                    <li><span className='bold'>portrait</span> from Henri Matisse, <span className='italic'>Portrait With Pink and Blue</span> (1936) </li>
+                </ul>
+
+                <img
+                className='info-close-icon'
+                    src={CloseIcon}
+                    onPointerEnter={()=>{
+                        setOpacity(0.75)
+                    }}
+                    onPointerLeave={()=>{
+                        setOpacity(1.0)
+                    }}
+                    onClick={()=>
+                        {
+                            setShowInfo(false)
+                            setOpacity(1.0)
+                        }
+                    }
+                />
+            </div>
+    
+        }
         <Loader />
     </>
 }

@@ -9,7 +9,7 @@ html, body, #root
     background: rgb(22, 16, 26);
 }
 
-.overlay
+.painting-overlay
 {
     position: fixed;
     top: 0;
@@ -19,16 +19,18 @@ html, body, #root
     pointer-events: none;
 }
 
-.info {
+.info-button 
+{
     position: absolute;
     bottom: 15px;
     left: 20px;
+    padding: 0;
     background-color: rgba(123, 61, 255, 0.0);
     font-family:'Inknut Antiqua', serif;
-    font-weight: 400;
-    color: rgb(181, 239, 255);
+    font-weight: 500;
+    color: rgb(235, 251, 255);
     border: none;
-    outline-color: rgb(181, 239, 255);
+    outline-color: rgb(223, 248, 255);
     outline-style: solid;
     outline-width: 1.5px;
     font-size: 17px;
@@ -42,11 +44,52 @@ html, body, #root
     /* mix-blend-mode: difference; */
 }
 
+.info-overlay
+{
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: rgba(255, 240, 240, 0.85);
+    border: 15px solid rgba(254, 207, 85, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    animation: fadeIn 0.4s;
+}
+
+ul
+{
+    list-style-type: none;
+    margin: 70px 60px;;
+    padding: 0;
+}
+
+li
+{
+    font-family:'Alegreya', serif;
+    font-weight: 500;
+    font-size: 16pt;
+    color: #402eff;
+    padding: 2.5px;
+    white-space: nowrap;
+}
+
+.bold
+{
+    font-weight: 800;
+}
+
+.italic
+{
+    font-style: italic;
+}
+
 
 .fish-container
 {
     position: absolute;
-    /* bottom: 45vh; */
     top: 30vh;
     right: 10vw;   
     width: min(699px, 33vw);
@@ -129,7 +172,7 @@ html, body, #root
     width: calc(min(600px, 55vh) * 0.78)
 }
 
-.fish-text,
+/* .fish-text,
 .dance-text,
 .jug-text
 {   
@@ -138,18 +181,15 @@ html, body, #root
     width: max-content;
     height: fit-content;
     color: #0E1261;
-    /* background-color: rgba(203, 207, 255, 0.7); */
     padding: 0px 15px;
     border-radius: 2px;
     font-size: max(16px, 1.6vh);
-    /* top: 18px; */
 }
 
 .fish-text
 {
     background-color: rgba(210, 173, 255, 0.8);
     right: -30px;
-    /* top: -70px; */
     top: min(-60px, -6vh);
 
 }
@@ -158,7 +198,6 @@ html, body, #root
 {
     background-color:rgba(255, 202, 214, 0.8);
     left: -30px;
-    /* top: -75px; */
     top: min(-60px, -6vh);
 }
 
@@ -167,7 +206,7 @@ html, body, #root
     background-color:rgba(236, 181, 217, 0.8);
     right: -30px;
     bottom: min(-60px, -6vh);
-}
+} */
 
 
 .close
@@ -185,15 +224,21 @@ html, body, #root
     
 }
 
-.close-icon
+.close-icon, .info-close-icon
 {
-    width: min(23px, 4vw);
+    width: min(23px, 4.5vw);
     height: auto;
     position: absolute;
-    right: max(-40px, -7.5vw);
-    top: max(-40px, -7.5vw);
+    right: max(-40px, -8vw);
+    top: max(-40px, -8vw);
     cursor: pointer;
     pointer-events: auto;
+}
+
+.info-close-icon
+{
+    right: max(-45px, -9vw);
+    top: max(-45px, -9vw);
 }
 
 @media screen and (max-aspect-ratio: 1/1)
@@ -246,8 +291,30 @@ html, body, #root
         top: min(-60px, -7vh);
     }
 
-    .info 
+    .info-button
     {
         left: 15px;
+    }
+
+    ul
+    {
+        margin: 20px 20px;;
+        padding: 0;
+    }
+
+    li
+    {
+        font-family:'Alegreya', serif;
+        font-weight: 500;
+        font-size: 18px;
+        color: #402eff;
+        padding: 4px;
+        white-space: normal;
+    }
+
+    .info-overlay
+    {
+        width: 80vw;
+        height: auto;
     }
 }
