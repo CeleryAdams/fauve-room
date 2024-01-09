@@ -85,6 +85,11 @@ export default function App()
             </div>
     
         }
-        <Loader />
+        <Loader 
+            containerStyles={{background: '#393B63'}}
+            innerStyles={{width: 300, height: 3, background: '#4F518E'}}
+            barStyles={{height: 3, background: '#787BC1'}}
+            dataStyles={{fontSize: '1.5em', fontFamily: 'Alegreya, serif', color: '#787BC1'}}
+        />
     </>
 }
