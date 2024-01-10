@@ -86,10 +86,11 @@ export default function App()
     
         }
         <Loader 
-            containerStyles={{background: '#393B63'}}
-            innerStyles={{width: 300, height: 3, background: '#4F518E'}}
-            barStyles={{height: 3, background: '#787BC1'}}
-            dataStyles={{fontSize: '1.5em', fontFamily: 'Alegreya, serif', color: '#787BC1'}}
+            containerStyles={{background: `url('./images/wallpaper-bg.jpg'), repeat`}}
+            innerStyles={{width: '80vw', height: 3.5, background: '#312b5c'}}
+            barStyles={{height: 3.5, background: '#a178f5'}}
+            dataInterpolation={(p) => `Loading ${p.toFixed(0)}%`}
+            dataStyles={{fontSize: 'max(2vw, 16pt)', fontFamily: 'Alegreya, serif', color: '#a178f5', marginTop: '0.5em'}}
         />
     </>
 }
