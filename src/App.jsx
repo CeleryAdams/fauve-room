@@ -90,7 +90,7 @@ export default function App()
             innerStyles={{width: '80vw', height: 3.5, background: '#312b5c'}}
             barStyles={{height: 3.5, background: '#a178f5'}}
             dataInterpolation={(p) => `Loading ${p.toFixed(0)}%`}
-            dataStyles={{fontSize: 'max(2vw, 16pt)', fontFamily: 'Alegreya, serif', color: '#a178f5', marginTop: '0.5em'}}
+            dataStyles={{fontSize: 'max(2vw, 16pt)', fontFamily: 'Alegreya, serif', color: '#a998d8', marginTop: '0.5em'}}
         />
     </>
 }
