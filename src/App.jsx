@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import World from './World.jsx'
 import { Suspense, useState, useEffect } from 'react'
-import { useProgress, Html, Loader, Preload } from "@react-three/drei"
+import { Loader, Preload } from "@react-three/drei"
 import { Perf } from 'r3f-perf'
 import PaintingOverlay from './PaintingOverlay.jsx'
 import CloseIcon from '/images/close.svg'

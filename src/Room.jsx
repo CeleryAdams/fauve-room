@@ -21,4 +21,4 @@ export default function Room( {model, texture} )
     </>
 }
 
-useTexture.preload('./textures/night/baked_matte_night.jpg')
+// useTexture.preload('./textures/night/baked_matte_night.jpg')

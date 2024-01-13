@@ -35,4 +35,4 @@ export default function Floor( {texture} )
     </>
 }
 
-useTexture.preload('./textures/night/floor_1k_night.jpg')
+// useTexture.preload('./textures/night/floor_1k_night.jpg')

@@ -48,5 +48,5 @@ export default function Tabletop( {glossyObjects, tabletop, pitcher, texture} )
         </mesh>
     </>
 }
-useTexture.preload('./textures/night/baked_glossy_night.jpg')
-useTexture.preload('./textures/night/black_matcap_night.jpg')
+// useTexture.preload('./textures/night/baked_glossy_night.jpg')
+// useTexture.preload('./textures/night/black_matcap_night.jpg')
