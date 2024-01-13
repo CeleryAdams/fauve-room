@@ -66,6 +66,12 @@ export default function App()
                     <li><span className='bold'>portrait</span> from Henri Matisse, <span className='italic'>Portrait With Pink and Blue</span> (1936) </li>
                 </ul>
 
+                <footer>
+                    <span className='bold'>rotate:</span> left click // 
+                    <span className='bold'>pan:</span> right click // 
+                    <span className='bold'>zoom:</span> middle wheel
+                </footer>
+
                 <img
                 className='info-close-icon'
                     src={CloseIcon}
