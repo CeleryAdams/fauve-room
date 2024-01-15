@@ -1,3 +1,3 @@
 # fauve-room
 
-a still life
+a still life with borrowed objects
