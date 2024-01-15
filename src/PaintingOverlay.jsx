@@ -12,13 +12,19 @@ export default function PaintingOverlay({setImage, image})
         event.stopPropagation()
     }
 
+    const handlePointerEnter = () =>
+    {
+        if (!window.matchMedia('(hover: none)').matches)
+        {
+            setOpacity(0.5)
+            setOverlay(true)
+        }
+    }
+
 
     return <>
         <div className={`${image}-container`}
-            onPointerEnter={()=>{
-                setOpacity(0.5)
-                setOverlay(true)
-            }}
+            onPointerEnter={handlePointerEnter}
             onPointerLeave={()=>{
                 setOpacity(1.0)
                 setOverlay(false)
