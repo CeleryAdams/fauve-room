@@ -10,7 +10,7 @@ export default defineConfig({
   server: { host: true },
   build:
   {
-    outDir: '..dist',
+    outDir: '../dist',
     emptyOutDir: true,
     sourcemap: true
   }
