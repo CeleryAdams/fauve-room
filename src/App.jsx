@@ -68,8 +68,8 @@ export default function App()
 
                 <footer>
                     <span className='bold'>rotate:</span> left click // 
-                    <span className='bold'>pan:</span> right click // 
-                    <span className='bold'>zoom:</span> middle wheel
+                    <span className='bold'> pan:</span> right click // 
+                    <span className='bold'> zoom:</span> middle wheel
                 </footer>
 
                 <img
