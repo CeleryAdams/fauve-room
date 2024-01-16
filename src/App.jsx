@@ -42,7 +42,7 @@ export default function App()
         }}
         >
         {/* <Perf /> */}
-        <Suspense>
+        <Suspense fallback={null}>
             <World image = { image } setImage={ setImage }/>
             <Preload all/>
         </Suspense>
@@ -52,8 +52,8 @@ export default function App()
         <div className='painting-overlay'>
             { image && <PaintingOverlay setImage={ setImage } image={ image } />}
         </div>
-
         <button className='info-button' onClick={()=>setShowInfo(!showInfo)}>i</button>
+        
         {showInfo && 
             <div className='info-overlay'
                 style={{opacity: opacity}}
