@@ -29,9 +29,9 @@ html, body, #root
     background-color: rgba(255, 53, 238, 0.0);
     font-family:'Inknut Antiqua', serif;
     font-weight: 500;
-    color: rgb(235, 251, 255);
+    color: #b7d6ff;
     border: none;
-    outline-color: rgb(223, 248, 255);
+    outline-color: #b7d6ff;
     outline-style: solid;
     outline-width: 1.5px;
     font-size: 17px;
