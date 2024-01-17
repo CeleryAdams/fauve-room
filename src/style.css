@@ -52,7 +52,7 @@ html, body, #root
     top: 50vh;
     left: 50vw;
     transform: translateX(-50%) translateY(-50%);
-    background-color: rgba(255, 240, 240, 0.85);
+    background-color: rgba(255, 240, 240, 0.88);
     border: 15px solid rgba(254, 207, 85, 1);
     filter: drop-shadow(3px 3px 2px rgba(0, 52, 238, 0.15));
     display: flex;
@@ -103,7 +103,7 @@ footer
 .fish-container
 {
     position: absolute;
-    top: 30vh;
+    top: 20vh;
     right: 10vw;   
     width: min(699px, 33vw);
     height: calc(min(699px, 33vw) * 0.54);
@@ -114,7 +114,7 @@ footer
 {
     position: absolute;
     top: 10vh;
-    left: 40vw;
+    left: 48vw;
     width: min(490px, 30vw);
     height: calc(min(490px, 30vw) * 0.76);
     animation: fadeIn 0.5s;
@@ -124,7 +124,7 @@ footer
 .dance-container
 {
     position: absolute;
-    top: 15vh;
+    top: 12vh;
     left: 7vw;   
     width: min(700px, 35vw);
     height: calc(min(700px, 35vw) * 0.77);
