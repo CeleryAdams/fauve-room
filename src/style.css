@@ -234,8 +234,9 @@ footer
     display: flex;
     justify-content: center;
     align-items: center;
-    color: rgb(92, 130, 255);
-    mix-blend-mode: screen;
+    color: rgba(161, 183, 255);
+    mix-blend-mode: hard-light;
+    visibility: hidden;
     
 }
 
